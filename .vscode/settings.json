@@ -1,0 +1,10 @@
+{
+    "remote.SSH.useLocalServer": false,
+    "remote.SSH.remoteServerListenOnSocket": false,
+    "remote.SSH.enableRemoteServerDownload": false,
+    "remote.SSH.useFlock": false,
+    "remote.SSH.lockfilesInTmp": true,
+    "remote.SSH.showLoginTerminal": true,
+    "remote.SSH.useExecServer": false,
+    "remote.SSH.serverInstallPath": "~/.vscode-server",
+}

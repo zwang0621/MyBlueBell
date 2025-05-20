@@ -1,0 +1,138 @@
+definitions:
+  controller._ResponsePostList:
+    properties:
+      code:
+        allOf:
+        - $ref: '#/definitions/controller.ResCode'
+        description: 业务响应状态码
+      data:
+        description: 数据
+        items:
+          $ref: '#/definitions/models.ApiPostDetail'
+        type: array
+      message:
+        description: 提示信息
+        type: string
+    type: object
+  controller.ResCode:
+    enum:
+    - 1010
+    - 1011
+    - 1012
+    - 1013
+    - 1014
+    - 1015
+    - 1016
+    - 1017
+    type: integer
+    x-enum-comments:
+      CodeInvalidParam: "1011"
+      CodeInvalidPassword: "1014"
+      CodeInvalidToken: "1016"
+      CodeNeedLogin: "1017"
+      CodeServerBusy: "1015"
+      CodeUserExist: "1012"
+      CodeUserNotExist: "1013"
+    x-enum-varnames:
+    - CodeSuccess
+    - CodeInvalidParam
+    - CodeUserExist
+    - CodeUserNotExist
+    - CodeInvalidPassword
+    - CodeServerBusy
+    - CodeInvalidToken
+    - CodeNeedLogin
+  models.ApiPostDetail:
+    properties:
+      author_id:
+        type: integer
+      author_name:
+        type: string
+      community:
+        $ref: '#/definitions/models.CommunityDetail'
+      community_id:
+        type: integer
+      content:
+        type: string
+      create_time:
+        type: string
+      id:
+        example: "0"
+        type: string
+      status:
+        type: integer
+      title:
+        type: string
+      vote_num:
+        type: integer
+    required:
+    - community_id
+    - content
+    - title
+    type: object
+  models.CommunityDetail:
+    properties:
+      create_time:
+        type: string
+      id:
+        type: integer
+      introduction:
+        type: string
+      name:
+        type: string
+    type: object
+host: 127.0.0.1:8080/api/v1
+info:
+  contact:
+    email: wz990621@163.com
+    name: wangzhuang
+    url: http://www.swagger.io/support
+  description: 这是汪壮制作的第一个golang项目blubell
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: 汪壮的bluebell
+  version: "1.0"
+paths:
+  /posts2:
+    get:
+      consumes:
+      - application/json
+      description: 可按社区按时间或分数排序查询帖子列表接口
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 可以为空
+        in: query
+        name: community_id
+        type: integer
+      - description: 每页的数据量
+        in: query
+        name: limit
+        type: integer
+      - description: 起始页码
+        in: query
+        name: offset
+        type: integer
+      - description: 排序的依据，帖子创建时间或者帖子的点赞量
+        example: score
+        in: query
+        name: order
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller._ResponsePostList'
+      security:
+      - ApiKeyAuth: []
+      summary: 升级版帖子列表接口
+      tags:
+      - 帖子相关接口
+swagger: "2.0"
