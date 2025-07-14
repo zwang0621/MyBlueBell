@@ -96,7 +96,7 @@ func LoginHandler(c *gin.Context) {
 	fmt.Println(p)
 
 	//2.业务处理
-	user, err := logic.Login(&p)
+	atoken, _, err := logic.Login(&p)
 	if err != nil {
 		zap.L().Error("logic.login failed", zap.String("username", p.Username), zap.Error(err))
 		// c.JSON(http.StatusOK, gin.H{
@@ -113,9 +113,5 @@ func LoginHandler(c *gin.Context) {
 	// c.JSON(http.StatusOK, gin.H{
 	// 	"msg": "登陆成功！",
 	// })
-	ResponseSuccess(c, gin.H{
-		"user_id":   fmt.Sprintf("%d", user.UserID),
-		"user_name": user.Username,
-		"token":     user.Token,
-	})
+	ResponseSuccess(c, atoken)
 }

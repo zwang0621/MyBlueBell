@@ -71,6 +71,9 @@ func GetCommunityPostIDsInOrder(p *models.ParamPostlist) ([]string, error) {
 	if rdb.Exists(key).Val() < 1 {
 		//不存在，需要计算
 		pipeline := rdb.Pipeline()
+		//用 ZINTERSTORE 把社区下的帖子集合（Set）全局排序的 ZSet（时间/得分）做一个交集，生成一个新的 ZSet：
+		//key 是上面新拼的 key，分数来自原排序 ZSet，用 MAX 保留最大的分数（通常其实只有一个来源）
+		//得到一个："某社区下的帖子，按时间/得分排序的新 ZSet"
 		pipeline.ZInterStore(key, redis.ZStore{
 			Aggregate: "MAX",
 		}, ckey, orderkey)
