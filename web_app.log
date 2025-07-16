@@ -11237,3 +11237,12 @@
 {"level":"ERROR","time":"2025-07-16T11:48:08.773+0800","caller":"controller/user.go:26","msg":"SignUp with invalid param","error":"invalid character '}' looking for beginning of object key string"}
 {"level":"INFO","time":"2025-07-16T11:48:08.774+0800","caller":"logger/logger.go:80","msg":"/api/v1/signup","status":200,"method":"POST","path":"/api/v1/signup","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.0009437}
 {"level":"INFO","time":"2025-07-16T11:49:33.375+0800","caller":"logger/logger.go:80","msg":"/api/v1/signup","status":200,"method":"POST","path":"/api/v1/signup","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.0263668}
+{"level":"DEBUG","time":"2025-07-16T14:05:16.448+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"INFO","time":"2025-07-16T14:05:27.179+0800","caller":"logger/logger.go:80","msg":"/api/v1/login","status":200,"method":"POST","path":"/api/v1/login","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.0075965}
+{"level":"INFO","time":"2025-07-16T14:07:55.941+0800","caller":"logger/logger.go:80","msg":"/api/v1/refreshtoken","status":200,"method":"POST","path":"/api/v1/refreshtoken","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0}
+{"level":"INFO","time":"2025-07-16T14:11:05.635+0800","caller":"logger/logger.go:80","msg":"/api/v1/post","status":200,"method":"POST","path":"/api/v1/post","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0}
+{"level":"DEBUG","time":"2025-07-16T14:12:02.396+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"INFO","time":"2025-07-16T14:13:14.545+0800","caller":"logger/logger.go:80","msg":"/api/v1/refreshtoken","status":200,"method":"POST","path":"/api/v1/refreshtoken","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.0011115}
+{"level":"INFO","time":"2025-07-16T14:14:04.361+0800","caller":"logger/logger.go:80","msg":"/api/v1/post","status":200,"method":"POST","path":"/api/v1/post","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0}
+{"level":"INFO","time":"2025-07-16T14:14:36.436+0800","caller":"logger/logger.go:80","msg":"/api/v1/post","status":200,"method":"POST","path":"/api/v1/post","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0}
+{"level":"INFO","time":"2025-07-16T14:15:04.947+0800","caller":"logger/logger.go:80","msg":"/api/v1/post","status":200,"method":"POST","path":"/api/v1/post","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.0388736}

@@ -7,7 +7,7 @@ app:
   machine_id: 1
 
 auth:
-  jwt_expire: 10  # 1 小时  用10s进行测试
+  jwt_expire: 1  # 1 小时  用10s进行测试
   refresh_expire: 168 # 7 天（也就是 7*24 小时）
 
 log:
