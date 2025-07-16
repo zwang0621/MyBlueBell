@@ -11291,3 +11291,11 @@
 {"level":"INFO","time":"2025-07-16T16:49:26.972+0800","caller":"logger/logger.go:80","msg":"/api/v1/search","status":200,"method":"GET","path":"/api/v1/search","query":"search=%E6%97%A0%E6%95%8C&order=time&offset=1&limit=5&community_id=2","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.0166525}
 {"level":"DEBUG","time":"2025-07-16T16:50:35.431+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
 {"level":"INFO","time":"2025-07-16T16:55:11.616+0800","caller":"logger/logger.go:80","msg":"/api/v1/search","status":200,"method":"GET","path":"/api/v1/search","query":"search=%E6%B5%8B%E8%AF%95&order=time&offset=1&limit=10","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.0472284}
+{"level":"DEBUG","time":"2025-07-16T17:42:46.823+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"INFO","time":"2025-07-16T17:43:16.529+0800","caller":"logger/logger.go:80","msg":"/api/v1/news","status":200,"method":"GET","path":"/api/v1/news","query":"offset=1&limit=20","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.404989}
+{"level":"INFO","time":"2025-07-16T17:43:37.044+0800","caller":"logger/logger.go:80","msg":"/api/v1/news","status":200,"method":"GET","path":"/api/v1/news","query":"offset=2&limit=20","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.0910877}
+{"level":"DEBUG","time":"2025-07-16T17:45:27.442+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"INFO","time":"2025-07-16T17:45:28.160+0800","caller":"logger/logger.go:80","msg":"/api/v1/news","status":200,"method":"GET","path":"/api/v1/news","query":"page=2&size=20","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.4447105}
+{"level":"DEBUG","time":"2025-07-16T17:47:05.634+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"DEBUG","time":"2025-07-16T17:47:10.143+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"DEBUG","time":"2025-07-16T17:50:57.913+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}

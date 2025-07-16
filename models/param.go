@@ -41,3 +41,8 @@ type ParamPostList struct {
 	Offset      int64  `json:"offset" form:"offset"`               //起始页码
 	Order       string `json:"order" form:"order" example:"score"` // 排序依据
 }
+
+type ParamNewsTrending struct {
+	Offset int64 `json:"offset" form:"offset"` // 页码
+	Limit  int64 `json:"limit" form:"limit"`   // 每页数量
+}

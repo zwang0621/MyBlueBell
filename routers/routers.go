@@ -51,6 +51,9 @@ func Setup(mode string) *gin.Engine {
 	v1.GET("/community", controller.CommunityHandler)
 	v1.GET("/community/:id", controller.CommunityDetailHandler)
 
+	//增加侧边栏热点新闻功能
+	v1.GET("/news", controller.NewsTrendingHandler)
+
 	//创建一个v1路由组的好处：
 	//应用中间件 (Applying Middleware): 可以方便地将一组中间件应用到一组相关的路由上。而不是对每个路由都单独调用 Use()
 	//如果将来你需要开发 /api/v2 版本的 API，你可以很容易地创建另一个组 v2 := r.Group("/api/v2")，并在其中定义新的路由和应用不同的中间件，而不会影响到现有的 v1 组的代码
