@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"errors"
 	"strings"
 	"web_app/controller"
 	"web_app/pkg/jwt"
@@ -38,11 +39,17 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 		// parts[1]是获取到的tokenString，我们使用之前定义好的解析JWT的函数来解析它
 		mc, err := jwt.ParseToken(parts[1])
 		if err != nil {
-			controller.ResponseError(c, controller.CodeInvalidToken)
-			// c.JSON(http.StatusOK, gin.H{
-			// 	"code": 2005,
-			// 	"msg":  "无效的Token",
-			// })
+			if errors.Is(err, jwt.ErrTokenExpired) {
+				// 如果 access token 过期，我们返回一个特定的、约定好的状态码。
+				// 客户端将拦截这个状态码并触发Token刷新流程。
+				controller.ResponseErrorWithMsg(c, controller.CodeAccessTokenExpired, "access token已过期")
+				c.Abort()
+				return
+			}
+
+			// 对于所有其他Token错误（例如，签名无效、格式错误），
+			// 返回通用的“无效Token”错误。
+			controller.ResponseErrorWithMsg(c, controller.CodeInvalidToken, "无效的token")
 			c.Abort()
 			return
 		}

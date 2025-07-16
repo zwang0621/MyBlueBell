@@ -29,17 +29,23 @@ func SignUp(p *models.ParamSignUp) (err error) {
 	return mysql.InsertUser(&user)
 }
 
-func Login(p *models.ParamLogin) (atoken, rtoken string, err error) {
+func Login(p *models.ParamLogin) (user *models.User, err error) {
 
 	// 判断用户存不存在
-	user := &models.User{
+	user = &models.User{
 		Username: p.Username,
 		Password: p.Password,
 	}
 	//传递的是指针，就能拿到userid
 	if err := mysql.Login(user); err != nil {
-		return "", "", err
+		return nil, err
 	}
 	//生成jwt token
-	return jwt.GenToken(user.UserID, user.Username)
+	atoken, rtoken, err := jwt.GenToken(user.UserID, user.Username)
+	if err != nil {
+		return nil, err
+	}
+	user.AccessToken = atoken
+	user.RefreshToken = rtoken
+	return
 }

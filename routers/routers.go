@@ -36,9 +36,10 @@ func Setup(mode string) *gin.Engine {
 	v1 := r.Group("/api/v1")
 	//注册业务路由
 	v1.POST("/signup", controller.SignUpHandler)
-
 	//登陆业务路由
 	v1.POST("/login", controller.LoginHandler)
+	//刷新atoken路由
+	v1.POST("/refreshtoken", controller.RefreshTokenHandler)
 
 	//查看帖子列表其实不需要登陆
 	v1.GET("/posts", controller.GetPostListHandler)
