@@ -5,8 +5,6 @@
 3. 优化内容：
 
 - [ ] 对 bluebell 后端代码进行全体重构优化  
-  包括：
-
   1. **优化 access token 和 refresh token 机制**
 
      **核心逻辑：**
