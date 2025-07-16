@@ -1,6 +1,7 @@
 package logic
 
 import (
+	"strconv"
 	"web_app/dao/mysql"
 	"web_app/dao/redis"
 	"web_app/models"
@@ -81,7 +82,7 @@ func GetPostList(offset, limit int64) (data []*models.ApiPostDetail, err error) 
 	return
 }
 
-func GetPostList2(p *models.ParamPostlist) (data []*models.ApiPostDetail, err error) {
+func GetPostList2(p *models.ParamPostList) (data []*models.ApiPostDetail, err error) {
 	// 2.去redis查id列表
 	ids, err := redis.GetPostIDsInOrder(p)
 	if err != nil {
@@ -125,7 +126,7 @@ func GetPostList2(p *models.ParamPostlist) (data []*models.ApiPostDetail, err er
 	return
 }
 
-func GetCommunityPostList(p *models.ParamPostlist) (data []*models.ApiPostDetail, err error) {
+func GetCommunityPostList(p *models.ParamPostList) (data []*models.ApiPostDetail, err error) {
 	// 2.去redis查id列表
 	ids, err := redis.GetCommunityPostIDsInOrder(p)
 	if err != nil {
@@ -170,7 +171,7 @@ func GetCommunityPostList(p *models.ParamPostlist) (data []*models.ApiPostDetail
 }
 
 // GetPostListNew 将两个查询帖子列表接口合二为一
-func GetPostListNew(p *models.ParamPostlist) (data []*models.ApiPostDetail, err error) {
+func GetPostListNew(p *models.ParamPostList) (data []*models.ApiPostDetail, err error) {
 	/*
 		如果 CommunityID 为 0，那么默认从所有 Community 按分数排序对帖子进行查询，否则根据指定的 CommunityID 对帖子进行查询
 	*/
@@ -185,4 +186,70 @@ func GetPostListNew(p *models.ParamPostlist) (data []*models.ApiPostDetail, err 
 		zap.L().Error("GetPostListNew() failed", zap.Error(err))
 	}
 	return data, err
+}
+
+// PostSearch 搜索业务-搜索帖子
+func PostSearch(p *models.ParamPostList) (*models.ApiPostDetailRes, error) {
+	var res models.ApiPostDetailRes
+	// 根据搜索条件去mysql查询符合条件的帖子列表总数
+	total, err := mysql.GetPostListTotalCount(p)
+	if err != nil {
+		return nil, err
+	}
+	res.Page.Total = total
+	// 1、根据搜索条件去mysql分页查询符合条件的帖子列表
+	posts, err := mysql.GetPostListByKeywords(p)
+	if err != nil {
+		return nil, err
+	}
+	// 查询出来的帖子总数可能为0
+	if len(posts) == 0 {
+		return &models.ApiPostDetailRes{}, nil
+	}
+	// 2、查询出来的帖子id列表传入到redis接口获取帖子的投票数
+	ids := make([]string, 0, len(posts))
+	for _, post := range posts {
+		ids = append(ids, strconv.Itoa(int(post.ID)))
+	}
+	voteData, err := redis.GetPostVoteData(ids)
+	if err != nil {
+		return nil, err
+	}
+	res.Page.Size = p.Limit
+	res.Page.Page = p.Offset
+	// 3、拼接数据
+	res.List = make([]*models.ApiPostDetail, 0, len(posts))
+	for idx, post := range posts {
+		// 根据作者id查询作者信息
+		user, err := mysql.GetUserByID(post.AuthorID)
+		if err != nil {
+			zap.L().Error("mysql.GetUserByID() failed",
+				zap.Uint64("postID", uint64(post.AuthorID)),
+				zap.Error(err))
+		}
+		// 根据社区id查询社区详细信息
+		community, err := mysql.GetCommunityDetailByID(post.CommunityID)
+		if err != nil {
+			zap.L().Error("mysql.GetCommunityByID() failed",
+				//这会在日志中生成一条格式化的信息，如：
+				//ERROR  mysql.GetCommunityByID() failed  {"community_id": 12345, "error": "sql: no rows in result set"}
+				//为了在日志中清晰地标记出是哪一个社区的查询失败了，方便排查问题和定位具体数据。
+				zap.Uint64("community_id", uint64(post.CommunityID)),
+				zap.Error(err))
+		}
+
+		authorName := "未知用户" // 提供一个默认值
+		if user != nil {
+			authorName = user.Username
+		}
+		// 接口数据拼接
+		postDetail := &models.ApiPostDetail{
+			AuthorName:      authorName,
+			VoteNum:         voteData[idx],
+			Post:            post,
+			CommunityDetail: community,
+		}
+		res.List = append(res.List, postDetail)
+	}
+	return &res, nil
 }

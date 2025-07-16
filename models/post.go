@@ -20,3 +20,14 @@ type ApiPostDetail struct {
 	*Post
 	*CommunityDetail `json:"community"`
 }
+
+type Page struct {
+	Total int64 `json:"total"`
+	Page  int64 `json:"page"`
+	Size  int64 `json:"size"`
+}
+
+type ApiPostDetailRes struct {
+	Page Page             `json:"page"`
+	List []*ApiPostDetail `json:"list"`
+}

@@ -16,7 +16,7 @@ func getIDsFormKey(key string, Offset, Limit int64) ([]string, error) {
 	return rdb.ZRevRange(key, start, end).Result()
 
 }
-func GetPostIDsInOrder(p *models.ParamPostlist) ([]string, error) {
+func GetPostIDsInOrder(p *models.ParamPostList) ([]string, error) {
 	//从redis获取id
 	//根据用户请求中携带的order参数确定要查询的redis key
 	key := getRedisKey(KeyPostTimeZSet)
@@ -58,7 +58,7 @@ func GetPostVoteData(ids []string) (data []int64, err error) {
 }
 
 // GetCommunityPostIDsInOrder 按社区查询ids
-func GetCommunityPostIDsInOrder(p *models.ParamPostlist) ([]string, error) {
+func GetCommunityPostIDsInOrder(p *models.ParamPostList) ([]string, error) {
 	//使用zinterstore 把分区的帖子set与帖子分数的zset生成一个新的zset
 	//针对新的zset按之前的逻辑取数据
 	orderkey := getRedisKey(KeyPostTimeZSet)

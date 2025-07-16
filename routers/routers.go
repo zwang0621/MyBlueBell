@@ -41,6 +41,8 @@ func Setup(mode string) *gin.Engine {
 	//刷新atoken路由
 	v1.POST("/refreshtoken", controller.RefreshTokenHandler)
 
+	// 搜索业务-搜索帖子
+	v1.GET("/search", controller.PostSearchHandler)
 	//查看帖子列表其实不需要登陆
 	v1.GET("/posts", controller.GetPostListHandler)
 	v1.GET("/posts2", controller.GetPostListHandler2)

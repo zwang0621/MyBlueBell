@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"strconv"
 	"web_app/logic"
 	"web_app/models"
@@ -84,7 +85,7 @@ func GetPostListHandler2(c *gin.Context) {
 	// 1.获取参数
 	// 2.去redis查id列表
 	// 3.根据id去数据库查
-	p := models.ParamPostlist{
+	p := models.ParamPostList{
 		Offset: 1,
 		Limit:  10,
 		Order:  models.Ordertime,
@@ -103,5 +104,24 @@ func GetPostListHandler2(c *gin.Context) {
 		return
 	}
 	//返回响应
+	ResponseSuccess(c, data)
+}
+
+// PostSearchHandler 搜索业务-搜索帖子
+func PostSearchHandler(c *gin.Context) {
+	p := &models.ParamPostList{}
+	if err := c.ShouldBindQuery(p); err != nil {
+		zap.L().Error("PostSearchHandler with invalid params", zap.Error(err))
+		ResponseError(c, CodeInvalidParam)
+		return
+	}
+	fmt.Println("Search", p.Search)
+	fmt.Println("Order", p.Order)
+	// 获取数据
+	data, err := logic.PostSearch(p)
+	if err != nil {
+		ResponseError(c, CodeServerBusy)
+		return
+	}
 	ResponseSuccess(c, data)
 }

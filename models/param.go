@@ -26,9 +26,18 @@ type ParamVoteData struct {
 }
 
 // ParamPostlist 帖子列表
-type ParamPostlist struct {
+// type ParamPostlist struct {
+// 	Limit       int64  `json:"limit" form:"limit"`                 //每页的数据量
+// 	Offset      int64  `json:"offset" form:"offset"`               //起始页码
+// 	Order       string `json:"order" form:"order" example:"score"` //排序的依据，帖子创建时间或者帖子的点赞量
+// 	CommunityID int64  `json:"community_id" form:"community_id"`   //可以为空
+// }
+
+// ParamPostList 获取帖子列表query
+type ParamPostList struct {
+	Search      string `json:"search" form:"search"`               // 关键字搜索
+	CommunityID int64  `json:"community_id" form:"community_id"`   // 可以为空
 	Limit       int64  `json:"limit" form:"limit"`                 //每页的数据量
 	Offset      int64  `json:"offset" form:"offset"`               //起始页码
-	Order       string `json:"order" form:"order" example:"score"` //排序的依据，帖子创建时间或者帖子的点赞量
-	CommunityID int64  `json:"community_id" form:"community_id"`   //可以为空
+	Order       string `json:"order" form:"order" example:"score"` // 排序依据
 }

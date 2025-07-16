@@ -51,3 +51,38 @@ func GetPostListByIds(ids []string) (postList []*models.Post, err error) {
 	err = db.Select(&postList, query, args...)
 	return
 }
+
+// GetPostListTotalCount 根据关键词查询帖子列表总数
+func GetPostListTotalCount(p *models.ParamPostList) (count int64, err error) {
+	// 根据帖子标题或者帖子内容模糊查询帖子列表总数
+	sqlStr := `SELECT count(post_id)
+	FROM post
+	WHERE (title LIKE ? OR content LIKE ?)
+	`
+
+	// %keyword%
+	p.Search = "%" + p.Search + "%"
+	err = db.Get(&count, sqlStr, p.Search, p.Search)
+	return
+}
+
+// GetPostListByKeywords 根据关键词查询帖子列表
+func GetPostListByKeywords(p *models.ParamPostList) (posts []*models.Post, err error) {
+	// 根据帖子标题或者帖子内容模糊查询帖子列表
+	sqlStr := `SELECT post_id, title, content, author_id, community_id, create_time
+	FROM post
+	WHERE (title LIKE ? OR content LIKE ?)
+	ORDER BY create_time DESC
+	LIMIT ?,?
+	`
+	// %keyword%
+	p.Search = "%" + p.Search + "%"
+	posts = make([]*models.Post, 0, 10)
+	page := p.Offset
+	if page < 1 {
+		page = 1 // 保证页码至少为1
+	}
+	offset := (page - 1) * p.Limit // 标准的分页计算公式
+	err = db.Select(&posts, sqlStr, p.Search, p.Search, offset, p.Limit)
+	return
+}
