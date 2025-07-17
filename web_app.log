@@ -11299,3 +11299,15 @@
 {"level":"DEBUG","time":"2025-07-16T17:47:05.634+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
 {"level":"DEBUG","time":"2025-07-16T17:47:10.143+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
 {"level":"DEBUG","time":"2025-07-16T17:50:57.913+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"DEBUG","time":"2025-07-17T10:13:23.482+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"INFO","time":"2025-07-17T10:16:32.701+0800","caller":"logger/logger.go:80","msg":"/api/v1/comment","status":200,"method":"POST","path":"/api/v1/comment","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.0005644}
+{"level":"INFO","time":"2025-07-17T10:17:14.338+0800","caller":"logger/logger.go:80","msg":"/api/v1/refreshtoken","status":400,"method":"POST","path":"/api/v1/refreshtoken","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.000647}
+{"level":"INFO","time":"2025-07-17T10:17:29.503+0800","caller":"logger/logger.go:80","msg":"/api/v1/refreshtoken","status":400,"method":"POST","path":"/api/v1/refreshtoken","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0}
+{"level":"ERROR","time":"2025-07-17T10:18:01.905+0800","caller":"controller/user.go:149","msg":"jwt.RefreshToken failed","error":"token is expired by 10h10m6s"}
+{"level":"INFO","time":"2025-07-17T10:18:01.905+0800","caller":"logger/logger.go:80","msg":"/api/v1/refreshtoken","status":200,"method":"POST","path":"/api/v1/refreshtoken","query":"","ip":"127.0.0.1","user-agent":"","errors":"","cost":0.0005106}
+{"level":"DEBUG","time":"2025-07-17T10:30:53.534+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"DEBUG","time":"2025-07-17T10:32:14.461+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"DEBUG","time":"2025-07-17T10:36:27.530+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"DEBUG","time":"2025-07-17T10:40:01.421+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"DEBUG","time":"2025-07-17T10:40:24.011+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}
+{"level":"DEBUG","time":"2025-07-17T10:41:13.879+0800","caller":"bluebell/main.go:50","msg":"logger init success!"}

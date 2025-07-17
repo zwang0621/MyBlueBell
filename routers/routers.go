@@ -61,9 +61,16 @@ func Setup(mode string) *gin.Engine {
 
 	{
 
-		v1.POST("/post", controller.CreatePostHandler)
+		v1.POST("/post", controller.CreatePostHandler) //创建帖子
 
-		v1.POST("/vote", controller.PostVoteController)
+		v1.POST("/vote", controller.PostVoteController) //投票
+
+		v1.POST("/comment", controller.CommentHandler)    // 评论
+		v1.GET("/comment", controller.CommentListHandler) // 评论列表
+
+		v1.GET("/ping", func(c *gin.Context) {
+			c.String(http.StatusOK, "pong")
+		}) //测试鉴权中间件
 	}
 
 	r.POST("/ping", middleware.JWTAuthMiddleware(), func(ctx *gin.Context) {
